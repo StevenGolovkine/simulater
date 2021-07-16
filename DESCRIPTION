@@ -20,3 +20,8 @@ BugReports: https://github.com/StevenGolovkine/simulater/issues
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 VignetteBuilder: knitr
+Suggests: 
+    rmarkdown,
+    knitr,
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
