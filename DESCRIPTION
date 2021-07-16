@@ -1,16 +1,22 @@
 Package: simulater
-Title: What the Package Does (One Line, Title Case)
+Type: Package
+Title: Simulate functional data based on real datasets
 Version: 0.0.0.9000
+Date: 2021-07-16
+Depends: R (>= 4.1.0)
 Authors@R: 
-    person(given = "First",
-           family = "Last",
+    person(given = "Steven",
+           family = "Golovkine",
            role = c("aut", "cre"),
-           email = "first.last@example.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
-    license
+           email = "steven_golovkine@icloud.com",
+           comment = c(ORCID = 0000-0002-5994-2671))
+Description: This package can be used to simulated irregularly sampled
+  functional data based on real datasets.
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
+URL: https://github.com/StevenGolovkine/simulater
+BugReports: https://github.com/StevenGolovkine/simulater/issues
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
+VignetteBuilder: knitr
