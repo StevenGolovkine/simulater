@@ -20,6 +20,12 @@ BugReports: https://github.com/StevenGolovkine/simulater/issues
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 VignetteBuilder: knitr
+Imports:
+    fdapace (>= 0.5.7),
+    glmnet (>= 4.1-2),
+    magrittr (>= 2.0.1),
+    MASS (>= 7.3-54),
+    purrr (>= 0.3.4)
 Suggests: 
     rmarkdown,
     knitr,
