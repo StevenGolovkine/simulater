@@ -2,23 +2,22 @@
 % Please edit documentation in R/estimate_covariance.R
 \name{predict_covariance}
 \alias{predict_covariance}
-\title{FUNCTION_TITLE}
+\title{Estimate the covariance given a matrix}
 \usage{
 predict_covariance(t, covariance)
 }
 \arguments{
-\item{t}{PARAM_DESCRIPTION}
+\item{t}{Vector of sampling points.}
 
-\item{covariance}{PARAM_DESCRIPTION}
+\item{covariance}{Matrix of covariance.}
 }
 \value{
-OUTPUT_DESCRIPTION
+A matrix of covariance estimated on a vector of sampling points.
 }
 \description{
-FUNCTION_DESCRIPTION
-}
-\details{
-DETAILS
+This function estimates the covariance matrix on a vector of
+sampling points. The \code{covariance} matrix parameter has to be larger
+than the vector of sampling points.
 }
 \examples{
 \dontrun{

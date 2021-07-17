@@ -2,23 +2,28 @@
 % Please edit documentation in R/estimate_covariance.R
 \name{learn_covariance}
 \alias{learn_covariance}
-\title{FUNCTION_TITLE}
+\title{Create a matrix of covariance}
 \usage{
 learn_covariance(df, method = "lm")
 }
 \arguments{
-\item{df}{PARAM_DESCRIPTION}
+\item{df}{Dataframe containing the real dataset.}
 
-\item{method}{PARAM_DESCRIPTION, default='lm'}
+\item{method}{Method to used to estimate the eigenvalues of the matrix,
+default='lm'. See details.}
 }
 \value{
-OUTPUT_DESCRIPTION
+A matrix with the estimated covariance.
 }
 \description{
-FUNCTION_DESCRIPTION
+This function estimates the covariance matrix of a real dataset.
 }
 \details{
-DETAILS
+Two methods are available for the estimation of the eigenvalues of
+the matrix. For \code{lm}, we fit a linear model on the log of the first
+eigenvalues on the log of their rank. For \code{min}, we add the minimum of the
+estimated eigenvalues to the complete set of eigenvalues to ensure that they
+are all positives.
 }
 \examples{
 \dontrun{

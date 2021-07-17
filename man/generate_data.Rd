@@ -2,33 +2,46 @@
 % Please edit documentation in R/generate_data.R
 \name{generate_data}
 \alias{generate_data}
-\title{FUNCTION_TITLE}
+\title{Generate realistic datasets}
 \usage{
-generate_data(n, m, model_mean, covariance, coefs, lambda, p)
+generate_data(n, m, model_mean, covariance, coefs, lambda, p = 0.2)
 }
 \arguments{
-\item{n}{PARAM_DESCRIPTION}
+\item{n}{Number of curves to generate.}
 
-\item{m}{PARAM_DESCRIPTION}
+\item{m}{Mean number of observation points per curve.}
 
-\item{model_mean}{PARAM_DESCRIPTION}
+\item{model_mean}{\code{\link[glmnet]{glmnet}} model for the mean curve.}
 
-\item{covariance}{PARAM_DESCRIPTION}
+\item{covariance}{Matrix for the covariance surface.}
 
-\item{coefs}{PARAM_DESCRIPTION}
+\item{coefs}{Vector of coefficients for the variance of the noise.}
 
-\item{lambda}{PARAM_DESCRIPTION}
+\item{lambda}{Value of the penalty parameter for the mean curve.}
 
-\item{p}{PARAM_DESCRIPTION}
+\item{p}{Uncertainty for the number of observation per curve, default=0.2.}
 }
 \value{
-OUTPUT_DESCRIPTION
+List containing \code{n} entries. Each of the entry represents a
+simulated curve as another list with three entries:
+\itemize{
+\item \strong{$t} the sampling points.
+\item \strong{$x} the observed points.
+\item \strong{$x_true} the observed points without noise.
+}
 }
 \description{
-FUNCTION_DESCRIPTION
+This function generates realistic irregularly sampled functional
+dataset given mean and covariance functions.
 }
 \details{
-DETAILS
+The data are generated as
+
+\deqn{X = \mu + \Sigma u + \epsilon,}
+
+where \eqn{\mu} is the mean function, \eqn{\Sigma} is the square-root of the
+covariance matrix, \eqn{u} and \eqn{\epsilon} are random normal variables.
+Heteroscedasticity is allowed using the \code{coefs} parameter.
 }
 \examples{
 \dontrun{

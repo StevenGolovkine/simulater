@@ -2,13 +2,15 @@
 # Estimate the noise
 # -----
 
-#' @title FUNCTION_TITLE
-#' @description FUNCTION_DESCRIPTION
+#' @title Estimate a set of coefficients for the noise variance
+#' @description This function estimates the noise variance by fitting a linear
+#'  model on the squared difference between the observed curves and their
+#'  smoothed version.
 #'
-#' @param df PARAM_DESCRIPTION
+#' @param df Dataframe containing the real dataset.
 #'
-#' @return OUTPUT_DESCRIPTION
-#' @details DETAILS
+#' @return A vector of coefficients.
+#'
 #' @examples
 #' \dontrun{
 #' if(interactive()){
@@ -56,15 +58,16 @@ learn_noise <- function(df) {
   stats::coefficients(model)
 }
 
-#' @title FUNCTION_TITLE
-#' @description FUNCTION_DESCRIPTION
+#' @title Estimate the variance of the noise given a set of coefficients
+#' @description This function estimates the noise variance given vectors of
+#'  sampling and observed points and a vector of coefficients.
 #'
-#' @param t PARAM_DESCRIPTION
-#' @param x PARAM_DESCRIPTION
-#' @param coefs PARAM_DESCRIPTION
+#' @param t Vector of sampling points.
+#' @param x Vector of observed points.
+#' @param coefs Vector of coefficients.
 #'
-#' @return OUTPUT_DESCRIPTION
-#' @details DETAILS
+#' @return A numeric vector representing the estimation of the noise variance.
+#'
 #' @examples
 #' \dontrun{
 #' if(interactive()){

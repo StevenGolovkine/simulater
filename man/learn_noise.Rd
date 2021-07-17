@@ -2,21 +2,20 @@
 % Please edit documentation in R/estimate_noise.R
 \name{learn_noise}
 \alias{learn_noise}
-\title{FUNCTION_TITLE}
+\title{Estimate a set of coefficients for the noise variance}
 \usage{
 learn_noise(df)
 }
 \arguments{
-\item{df}{PARAM_DESCRIPTION}
+\item{df}{Dataframe containing the real dataset.}
 }
 \value{
-OUTPUT_DESCRIPTION
+A vector of coefficients.
 }
 \description{
-FUNCTION_DESCRIPTION
-}
-\details{
-DETAILS
+This function estimates the noise variance by fitting a linear
+model on the squared difference between the observed curves and their
+smoothed version.
 }
 \examples{
 \dontrun{

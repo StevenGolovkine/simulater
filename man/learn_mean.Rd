@@ -7,18 +7,16 @@
 learn_mean(df, k = 50)
 }
 \arguments{
-\item{df}{PARAM_DESCRIPTION}
+\item{df}{Dataframe containing the real dataset.}
 
 \item{k}{Number of function to be used to fit the data, default=50.}
 }
 \value{
-A \code{\link[glmnet]{glmnet}} model
+A \code{\link[glmnet]{glmnet}} model for the mean curve.
 }
 \description{
-FUNCTION_DESCRIPTION
-}
-\details{
-DETAILS
+This function creates a \code{\link[glmnet]{glmnet}} model for
+the mean curve of a real dataset.
 }
 \examples{
 \dontrun{

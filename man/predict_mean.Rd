@@ -7,22 +7,21 @@
 predict_mean(u, model, lambda, k = 50)
 }
 \arguments{
-\item{u}{PARAM_DESCRIPTION}
+\item{u}{Vector of sampling points.}
 
-\item{model}{PARAM_DESCRIPTION}
+\item{model}{\code{\link[glmnet]{glmnet}} model for the mean curve.}
 
-\item{lambda}{Value of the penalty parameter}
+\item{lambda}{Value of the penalty parameter.}
 
-\item{k}{Number of function to be used to fit the data, default=50}
+\item{k}{Number of function to be used to fit the data, default=50.}
 }
 \value{
-OUTPUT_DESCRIPTION
+A numeric vector representing the estimation of the mean curve.
 }
 \description{
-FUNCTION_DESCRIPTION
-}
-\details{
-DETAILS
+This function estimates the mean curve of a functional dataset
+given a vector of sampling points and a \code{\link[glmnet]{glmnet}} model
+for the mean curve.
 }
 \examples{
 \dontrun{

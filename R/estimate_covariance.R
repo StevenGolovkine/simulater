@@ -2,14 +2,21 @@
 # Estimate the covariance
 # -----
 
-#' @title FUNCTION_TITLE
-#' @description FUNCTION_DESCRIPTION
+#' @title Create a matrix of covariance
+#' @description This function estimates the covariance matrix of a real dataset.
 #'
-#' @param df PARAM_DESCRIPTION
-#' @param method PARAM_DESCRIPTION, default='lm'
+#' @param df Dataframe containing the real dataset.
+#' @param method Method to used to estimate the eigenvalues of the matrix,
+#'  default='lm'. See details.
 #'
-#' @return OUTPUT_DESCRIPTION
-#' @details DETAILS
+#' @return A matrix with the estimated covariance.
+#'
+#' @details Two methods are available for the estimation of the eigenvalues of
+#'  the matrix. For `lm`, we fit a linear model on the log of the first
+#'  eigenvalues on the log of their rank. For `min`, we add the minimum of the
+#'  estimated eigenvalues to the complete set of eigenvalues to ensure that they
+#'  are all positives.
+#'
 #' @examples
 #' \dontrun{
 #' if(interactive()){
@@ -76,14 +83,16 @@ learn_covariance <- function(df, method = 'lm') {
   return(cov)
 }
 
-#' @title FUNCTION_TITLE
-#' @description FUNCTION_DESCRIPTION
+#' @title Estimate the covariance given a matrix
+#' @description This function estimates the covariance matrix on a vector of
+#'  sampling points. The \code{covariance} matrix parameter has to be larger
+#'  than the vector of sampling points.
 #'
-#' @param t PARAM_DESCRIPTION
-#' @param covariance PARAM_DESCRIPTION
+#' @param t Vector of sampling points.
+#' @param covariance Matrix of covariance.
 #'
-#' @return OUTPUT_DESCRIPTION
-#' @details DETAILS
+#' @return A matrix of covariance estimated on a vector of sampling points.
+#'
 #' @examples
 #' \dontrun{
 #' if(interactive()){

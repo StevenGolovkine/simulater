@@ -2,25 +2,23 @@
 % Please edit documentation in R/estimate_noise.R
 \name{predict_noise}
 \alias{predict_noise}
-\title{FUNCTION_TITLE}
+\title{Estimate the variance of the noise given a set of coefficients}
 \usage{
 predict_noise(t, x, coefs)
 }
 \arguments{
-\item{t}{PARAM_DESCRIPTION}
+\item{t}{Vector of sampling points.}
 
-\item{x}{PARAM_DESCRIPTION}
+\item{x}{Vector of observed points.}
 
-\item{coefs}{PARAM_DESCRIPTION}
+\item{coefs}{Vector of coefficients.}
 }
 \value{
-OUTPUT_DESCRIPTION
+A numeric vector representing the estimation of the noise variance.
 }
 \description{
-FUNCTION_DESCRIPTION
-}
-\details{
-DETAILS
+This function estimates the noise variance given vectors of
+sampling and observed points and a vector of coefficients.
 }
 \examples{
 \dontrun{

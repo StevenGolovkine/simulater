@@ -1,8 +1,8 @@
 ---
-title: "Data generation"
+title: "Example of data generation"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{generate_data}
+  %\VignetteIndexEntry{Example of data generation}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -14,6 +14,49 @@ knitr::opts_chunk$set(
 )
 ```
 
+In this vignette, we will show how to generate realistic datasets. For this example, the data will be simulated based on the `powerconsumption` dataset provides in the package.
+
 ```{r setup}
+# Load the packages
 library(simulater)
 ```
+
+First, we need to estimate the mean, covariance and noise of the real dataset.
+Pay attention that these functions may take some time to execute.
+
+```{r mean, cache=TRUE}
+mu <- learn_mean(powerconsumption)
+```
+
+```{r cov, cache=TRUE}
+cov <- learn_covariance(powerconsumption)
+```
+
+```{r noise, cache=TRUE}
+noise <- learn_noise(powerconsumption)
+```
+
+Then, we can generate some curves using the previous estimated parameters. 
+
+```{r data}
+X <- generate_data(10, 100, mu, cov, noise, exp(-5.5), 0.2)
+```
+
+```{r plot, echo=FALSE, fig.height=4.35, fig.width=7}
+plot(X[[1]]$t, X[[1]]$x, type = 'l', ylim = c(230, 250))
+for(i in 2:9){
+  lines(X[[i]]$t, X[[i]]$x, col = i)
+}
+```
+
+
+```{r data_new}
+X <- generate_data(1, 1440, mu, cov, noise, exp(-5.5), 0.2)
+```
+
+
+```{r plot_comp, echo=FALSE, fig.height=4.35, fig.width=7}
+plot(X[[1]]$t, X[[1]]$x, type = 'l', col = 'red', ylim = c(230, 250))
+lines(seq(0, 1, length.out = 1440), matrix(powerconsumption[1,]), col = 'blue')
+```
+

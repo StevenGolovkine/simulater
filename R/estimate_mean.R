@@ -3,13 +3,14 @@
 # -----
 
 #' @title Create a model for the estimation of the mean
-#' @description FUNCTION_DESCRIPTION
+#' @description This function creates a \code{\link[glmnet]{glmnet}} model for
+#'  the mean curve of a real dataset.
 #'
-#' @param df PARAM_DESCRIPTION
+#' @param df Dataframe containing the real dataset.
 #' @param k Number of function to be used to fit the data, default=50.
 #'
-#' @return A \code{\link[glmnet]{glmnet}} model
-#' @details DETAILS
+#' @return A \code{\link[glmnet]{glmnet}} model for the mean curve.
+#'
 #' @examples
 #' \dontrun{
 #' if(interactive()){
@@ -40,15 +41,17 @@ learn_mean <- function(df, k = 50) {
 }
 
 #' @title Estimate the mean function given some model
-#' @description FUNCTION_DESCRIPTION
+#' @description This function estimates the mean curve of a functional dataset
+#'  given a vector of sampling points and a \code{\link[glmnet]{glmnet}} model
+#'  for the mean curve.
 #'
-#' @param u PARAM_DESCRIPTION
-#' @param model PARAM_DESCRIPTION
-#' @param lambda Value of the penalty parameter
-#' @param k Number of function to be used to fit the data, default=50
+#' @param u Vector of sampling points.
+#' @param model \code{\link[glmnet]{glmnet}} model for the mean curve.
+#' @param lambda Value of the penalty parameter.
+#' @param k Number of function to be used to fit the data, default=50.
 #'
-#' @return OUTPUT_DESCRIPTION
-#' @details DETAILS
+#' @return A numeric vector representing the estimation of the mean curve.
+#'
 #' @examples
 #' \dontrun{
 #' if(interactive()){

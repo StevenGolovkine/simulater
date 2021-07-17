@@ -2,19 +2,34 @@
 # Generate some data
 # -----
 
-#' @title FUNCTION_TITLE
-#' @description FUNCTION_DESCRIPTION
+#' @title Generate realistic datasets
+#' @description This function generates realistic irregularly sampled functional
+#'  dataset given mean and covariance functions.
 #'
-#' @param n PARAM_DESCRIPTION
-#' @param m PARAM_DESCRIPTION
-#' @param model_mean PARAM_DESCRIPTION
-#' @param covariance PARAM_DESCRIPTION
-#' @param coefs PARAM_DESCRIPTION
-#' @param lambda PARAM_DESCRIPTION
-#' @param p PARAM_DESCRIPTION
+#' @param n Number of curves to generate.
+#' @param m Mean number of observation points per curve.
+#' @param model_mean \code{\link[glmnet]{glmnet}} model for the mean curve.
+#' @param covariance Matrix for the covariance surface.
+#' @param coefs Vector of coefficients for the variance of the noise.
+#' @param lambda Value of the penalty parameter for the mean curve.
+#' @param p Uncertainty for the number of observation per curve, default=0.2.
 #'
-#' @return OUTPUT_DESCRIPTION
-#' @details DETAILS
+#' @return List containing \code{n} entries. Each of the entry represents a
+#'  simulated curve as another list with three entries:
+#'  \itemize{
+#'   \item \strong{$t} the sampling points.
+#'   \item \strong{$x} the observed points.
+#'   \item \strong{$x_true} the observed points without noise.
+#'  }
+#'
+#' @details The data are generated as
+#'
+#' \deqn{X = \mu + \Sigma u + \epsilon,}
+#'
+#' where \eqn{\mu} is the mean function, \eqn{\Sigma} is the square-root of the
+#' covariance matrix, \eqn{u} and \eqn{\epsilon} are random normal variables.
+#' Heteroscedasticity is allowed using the \code{coefs} parameter.
+#'
 #' @examples
 #' \dontrun{
 #' if(interactive()){
@@ -36,13 +51,13 @@
 #' @importFrom stats runif rnorm
 #' @importFrom MASS mvrnorm
 #' @importFrom magrittr %>%
-generate_data <- function(n, m, model_mean, covariance, coefs, lambda, p) {
+generate_data <- function(n, m, model_mean, covariance, coefs, lambda, p = 0.2){
 
   mi <- sample(floor((1 - p) * m):floor((1 + p) * m), n, replace = TRUE)
   ti <- mi %>% purrr::map(~ sort(stats::runif(.x)))
 
   mui <- ti %>% purrr::map(~ predict_mean(.x, model_mean, lambda, k = 50))
-  covi <- ti %>% map(~ predict_covariance(.x, covariance))
+  covi <- ti %>% purrr::map(~ predict_covariance(.x, covariance))
 
   list(ti, mui, covi) %>%
     purrr::pmap(function(tt, m, c) {
