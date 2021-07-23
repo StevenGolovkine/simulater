@@ -105,6 +105,7 @@ learn_covariance <- function(df, method = 'lm') {
 #' @rdname predict_covariance
 #' @export
 predict_covariance <- function(t, covariance) {
-  idx <- ceiling(t * nrow(covariance))
+  idx <- floor(t * nrow(covariance)) + 1
+  idx[idx > nrow(covariance)] <- nrow(covariance)
   covariance[idx, idx]
 }
