@@ -66,7 +66,7 @@ generate_data <- function(n, m, model_mean, covariance, model_noise, lambda,
       list(t = tt, x = MASS::mvrnorm(1, m, c))
     }) %>%
     purrr::map(function(x) {
-      noise <- sqrt(k * predict_noise(x$t, x$x, model_noise))
+      noise <- sqrt(k * as.vector(predict_noise(x$t, x$x, model_noise)))
       list(t = x$t, x = x$x + noise * stats::rnorm(length(x$t)), x_true = x$x)
     })
 }
