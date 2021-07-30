@@ -10,7 +10,7 @@ learn_noise(df)
 \item{df}{Dataframe containing the real dataset.}
 }
 \value{
-A vector of coefficients.
+An object of class 'gam' from the function \code{mgcv::gam}.
 }
 \description{
 This function estimates the noise variance by fitting a linear

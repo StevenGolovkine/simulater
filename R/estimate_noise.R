@@ -9,7 +9,7 @@
 #'
 #' @param df Dataframe containing the real dataset.
 #'
-#' @return A vector of coefficients.
+#' @return An object of class 'gam' from the function `mgcv::gam`.
 #'
 #' @examples
 #' \dontrun{
@@ -43,19 +43,16 @@ learn_noise <- function(df) {
     curve <- unname(unlist(df[i,]))
     if(sum(is.na(curve)) != 0) next
 
-    xs <- stats::smooth.spline(tt_1, curve[grid_1])
+    xs <- stats::smooth.spline(tt_1, curve[grid_1], cv = TRUE)
     xs2 <- stats::predict(xs, tt_2)$y
     res_xs2[i, ] <- xs2
     res_ec2[i, ] <- (curve[grid_2] - xs2)**2
   }
 
-  # Fit linear model
-  ec2 <- colMeans(res_ec2, na.rm = TRUE)
-  xs2 <- colMeans(res_xs2, na.rm = TRUE)
-  model_matrix <- data.frame(ec2, tt_2, xs2, tt_2**2, tt_2 * xs2, xs2**2)
-  model <- stats::lm(ec2 ~ ., data = model_matrix)
-
-  stats::coefficients(model)
+  dd <- data.frame(ec = as.vector(res_ec2),
+                   xx = as.vector(res_xs2),
+                   tt = rep(seq(0, 1, length.out = length(tt_2)), nrow(df)))
+  mgcv::gam(ec ~ te(xx, tt), data = dd)
 }
 
 #' @title Estimate the variance of the noise given a set of coefficients
@@ -64,7 +61,7 @@ learn_noise <- function(df) {
 #'
 #' @param t Vector of sampling points.
 #' @param x Vector of observed points.
-#' @param coefs Vector of coefficients.
+#' @param model Object of class 'gam' from the function `learn_noise`.
 #'
 #' @return A numeric vector representing the estimation of the noise variance.
 #'
@@ -82,7 +79,7 @@ learn_noise <- function(df) {
 #' }
 #' @rdname predict_noise
 #' @export
-predict_noise <- function(t, x, coefs){
-  mat <- data.frame(1, t, x, t**2, t * x, x**2)
-  as.vector(abs(as.matrix(mat) %*% coefs))
+predict_noise <- function(t, x, model){
+  dd <- data.frame(xx = x, tt = t)
+  mgcv::predict.gam(model, newdata = dd)
 }

@@ -5,7 +5,7 @@
 \alias{powerconsumption}
 \title{Household Power Consumption}
 \format{
-A data frame with 745 rows and 1440 variables.
+A data frame with 708 rows and 1440 variables.
 }
 \source{
 \url{https://archive.ics.uci.edu/ml/datasets/Individual+household+electric+power+consumption}

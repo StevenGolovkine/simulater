@@ -10,9 +10,10 @@
 #' @param m Mean number of observation points per curve.
 #' @param model_mean \code{\link[glmnet]{glmnet}} model for the mean curve.
 #' @param covariance Matrix for the covariance surface.
-#' @param coefs Vector of coefficients for the variance of the noise.
+#' @param model_noise Object of class 'gam' from the function `learn_noise`.
 #' @param lambda Value of the penalty parameter for the mean curve.
 #' @param p Uncertainty for the number of observation per curve, default=0.2.
+#' @param k Multiplicative factor for the noise variance, default=1.
 #'
 #' @return List containing \code{n} entries. Each of the entry represents a
 #'  simulated curve as another list with three entries:
@@ -51,7 +52,8 @@
 #' @importFrom stats runif rnorm
 #' @importFrom MASS mvrnorm
 #' @importFrom magrittr %>%
-generate_data <- function(n, m, model_mean, covariance, coefs, lambda, p = 0.2){
+generate_data <- function(n, m, model_mean, covariance, model_noise, lambda,
+                          p = 0.2, k = 1){
 
   mi <- sample(floor((1 - p) * m):floor((1 + p) * m), n, replace = TRUE)
   ti <- mi %>% purrr::map(~ sort(stats::runif(.x)))
@@ -64,7 +66,7 @@ generate_data <- function(n, m, model_mean, covariance, coefs, lambda, p = 0.2){
       list(t = tt, x = MASS::mvrnorm(1, m, c))
     }) %>%
     purrr::map(function(x) {
-      noise <- sqrt(predict_noise(x$t, x$x, coefs))
+      noise <- sqrt(k * predict_noise(x$t, x$x, model_noise))
       list(t = x$t, x = x$x + noise * stats::rnorm(length(x$t)), x_true = x$x)
     })
 }

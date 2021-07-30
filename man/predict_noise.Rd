@@ -4,14 +4,14 @@
 \alias{predict_noise}
 \title{Estimate the variance of the noise given a set of coefficients}
 \usage{
-predict_noise(t, x, coefs)
+predict_noise(t, x, model)
 }
 \arguments{
 \item{t}{Vector of sampling points.}
 
 \item{x}{Vector of observed points.}
 
-\item{coefs}{Vector of coefficients.}
+\item{model}{Object of class 'gam' from the function \code{learn_noise}.}
 }
 \value{
 A numeric vector representing the estimation of the noise variance.

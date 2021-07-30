@@ -4,7 +4,16 @@
 \alias{generate_data}
 \title{Generate realistic datasets}
 \usage{
-generate_data(n, m, model_mean, covariance, coefs, lambda, p = 0.2)
+generate_data(
+  n,
+  m,
+  model_mean,
+  covariance,
+  model_noise,
+  lambda,
+  p = 0.2,
+  k = 1
+)
 }
 \arguments{
 \item{n}{Number of curves to generate.}
@@ -15,11 +24,13 @@ generate_data(n, m, model_mean, covariance, coefs, lambda, p = 0.2)
 
 \item{covariance}{Matrix for the covariance surface.}
 
-\item{coefs}{Vector of coefficients for the variance of the noise.}
+\item{model_noise}{Object of class 'gam' from the function \code{learn_noise}.}
 
 \item{lambda}{Value of the penalty parameter for the mean curve.}
 
 \item{p}{Uncertainty for the number of observation per curve, default=0.2.}
+
+\item{k}{Multiplicative factor for the noise variance, default=1.}
 }
 \value{
 List containing \code{n} entries. Each of the entry represents a

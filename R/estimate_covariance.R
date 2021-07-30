@@ -64,13 +64,14 @@ learn_covariance <- function(df, method = 'lm') {
 
   cov_smooth <- 0.5 * (cov_smooth + t(cov_smooth))
   if(method == 'lm') {
+    n_eigen <- min(105, ncol(df))
     e_val <- eigen(cov_smooth, only.values = FALSE)
-    e_val_trunc <- e_val$values[6:50]
-    model <- lm(log(e_val_trunc) ~ log(seq(6, 50, by = 1)))
+    e_val_trunc <- e_val$values[6:n_eigen]
+    model <- lm(log(e_val_trunc) ~ log(seq(6, n_eigen, by = 1)))
 
     new_e_val <- rep(0, 2 * m)
     new_e_val[1:(2 * m)] <- c(e_val$values[1:5],
-         exp(stats::coef(model)[1]) * seq(6, 2 * m, by = 1)**stats::coef(model)[2])
+      exp(stats::coef(model)[1]) * seq(6, 2 * m, by = 1)**stats::coef(model)[2])
 
     lambda <- diag(new_e_val, nrow = 2 * m, ncol = 2 * m)
     cov <- e_val$vectors %*% lambda %*% t(e_val$vectors)
