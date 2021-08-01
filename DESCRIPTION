@@ -1,7 +1,7 @@
 Package: simulater
 Type: Package
 Title: Simulate functional data based on real datasets
-Version: 0.0.0.9000
+Version: 1.0.0
 Date: 2021-07-16
 Depends: R (>= 3.6.0)
 Authors@R: 
@@ -25,7 +25,7 @@ Imports:
     glmnet (>= 4.1-2),
     magrittr (>= 2.0.1),
     mgcv (>= 1.8-35),
-    MASS (>= 7.3-54),
+    MASS (>= 7.3-50),
     purrr (>= 0.3.4)
 Suggests: 
     rmarkdown,
