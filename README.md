@@ -5,8 +5,11 @@
 
 <!-- badges: start -->
 
+[![Build
+Status](https://travis-ci.com/StevenGolovkine/simulater.svg?branch=main)](https://travis-ci.com/StevenGolovkine/simulater)
 [![Codacy
 Badge](https://app.codacy.com/project/badge/Grade/bcb0d2da16ff4e6e8b8f7d09f7eb7739)](https://www.codacy.com/gh/StevenGolovkine/simulater/dashboard?utm_source=github.com&utm_medium=referral&utm_content=StevenGolovkine/simulater&utm_campaign=Badge_Grade)
+[![DOI](https://zenodo.org/badge/386667875.svg)](https://zenodo.org/badge/latestdoi/386667875)
 <!-- badges: end -->
 
 `simulater` is an `R`-package that allows users to generated realistic
