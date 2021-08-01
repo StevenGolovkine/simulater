@@ -24,7 +24,7 @@ Imports:
     fdapace (>= 0.5.7),
     glmnet (>= 4.1-2),
     magrittr (>= 2.0.1),
-    mgcv (>= 1.8-35),
+    mgcv (>= 1.8-0),
     MASS (>= 7.3-50),
     purrr (>= 0.3.4)
 Suggests: 
