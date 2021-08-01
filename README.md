@@ -4,6 +4,9 @@
 # simulater
 
 <!-- badges: start -->
+
+[![Codacy
+Badge](https://app.codacy.com/project/badge/Grade/bcb0d2da16ff4e6e8b8f7d09f7eb7739)](https://www.codacy.com/gh/StevenGolovkine/simulater/dashboard?utm_source=github.com&utm_medium=referral&utm_content=StevenGolovkine/simulater&utm_campaign=Badge_Grade)
 <!-- badges: end -->
 
 `simulater` is an `R`-package that allows users to generated realistic
