@@ -13,6 +13,7 @@
 #' @param model_noise Object of class 'gam' from the function `learn_noise`.
 #' @param lambda Value of the penalty parameter for the mean curve.
 #' @param ti Sampling points of each curves, default=NULL.
+#' @param grid Common grid for the curves, default=seq(0, 1, length.out = 101).
 #' @param p Uncertainty for the number of observation per curve, default=0.2.
 #' @param k Multiplicative factor for the noise variance, default=1.
 #'
@@ -40,7 +41,9 @@
 #'  cov <- learn_covariance(powerconsumption, 'lm')
 #'  coefs <- learn_noise(df = powerconsumption)
 #'  df <- generate_data(n = 10, m = 40, model_mean = mod, covariance = cov,
-#'                      coefs = coefs, lambda = exp(-3.5), ti = NULL, p = 0.2)
+#'                      model_noise = coefs, lambda = exp(-3.5),
+#'                      ti = NULL, grid = seq(0, 1, length.out = 101),
+#'                      p = 0.2, k = 1)
 #'  }
 #' }
 #' @seealso
@@ -54,22 +57,34 @@
 #' @importFrom MASS mvrnorm
 #' @importFrom magrittr %>%
 generate_data <- function(n, m, model_mean, covariance, model_noise, lambda,
-                          ti = NULL, p = 0.2, k = 1){
+                          ti = NULL, grid = seq(0, 1, length.out = 101),
+                          p = 0.2, k = 1){
 
   if(is.null(ti)){
     mi <- sample(floor((1 - p) * m):floor((1 + p) * m), n, replace = TRUE)
     ti <- mi %>% purrr::map(~ sort(stats::runif(.x)))
   }
 
-  mui <- ti %>% purrr::map(~ predict_mean(.x, model_mean, lambda, k = 50))
-  covi <- ti %>% purrr::map(~ predict_covariance(.x, covariance))
+  ti_c <- ti %>% purrr::map(~ sort(c(.x, grid)))
+  mui <- ti_c %>% purrr::map(~ predict_mean(.x, model_mean, lambda, k = 50))
+  covi <- ti_c %>% purrr::map(~ predict_covariance(.x, covariance))
 
-  list(ti, mui, covi) %>%
-    purrr::pmap(function(tt, m, c) {
-      list(t = tt, x = MASS::mvrnorm(1, m, c))
+  list(ti, ti_c, mui, covi) %>%
+    purrr::pmap(function(tt, tt_c, m, c) {
+      x <- MASS::mvrnorm(1, m, c)
+      list(
+        t = tt,
+        x = x[tt_c %in% tt],
+        x_grid = x[!(tt_c %in% tt)]
+      )
     }) %>%
     purrr::map(function(x) {
       noise <- sqrt(k * as.vector(predict_noise(x$t, x$x, model_noise)))
-      list(t = x$t, x = x$x + noise * stats::rnorm(length(x$t)), x_true = x$x)
+      list(
+        t = x$t,
+        x = x$x + noise * stats::rnorm(length(x$t)),
+        x_true = x$x,
+        x_grid = x$x_grid
+      )
     })
 }

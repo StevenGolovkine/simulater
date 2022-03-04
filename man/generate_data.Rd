@@ -12,6 +12,7 @@ generate_data(
   model_noise,
   lambda,
   ti = NULL,
+  grid = seq(0, 1, length.out = 101),
   p = 0.2,
   k = 1
 )
@@ -30,6 +31,8 @@ generate_data(
 \item{lambda}{Value of the penalty parameter for the mean curve.}
 
 \item{ti}{Sampling points of each curves, default=NULL.}
+
+\item{grid}{Common grid for the curves, default=seq(0, 1, length.out = 101).}
 
 \item{p}{Uncertainty for the number of observation per curve, default=0.2.}
 
