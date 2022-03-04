@@ -70,6 +70,7 @@ dataset given mean and covariance functions.</p>
   <span class="va">model_noise</span>,
   <span class="va">lambda</span>,
   ti <span class="op">=</span> <span class="cn">NULL</span>,
+  grid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, length.out <span class="op">=</span> <span class="fl">101</span><span class="op">)</span>,
   p <span class="op">=</span> <span class="fl">0.2</span>,
   k <span class="op">=</span> <span class="fl">1</span>
 <span class="op">)</span></code></pre></div>
@@ -91,6 +92,8 @@ dataset given mean and covariance functions.</p>
 <dd><p>Value of the penalty parameter for the mean curve.</p></dd>
 <dt>ti</dt>
 <dd><p>Sampling points of each curves, default=NULL.</p></dd>
+<dt>grid</dt>
+<dd><p>Common grid for the curves, default=seq(0, 1, length.out = 101).</p></dd>
 <dt>p</dt>
 <dd><p>Uncertainty for the number of observation per curve, default=0.2.</p></dd>
 <dt>k</dt>
