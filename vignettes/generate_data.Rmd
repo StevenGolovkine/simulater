@@ -39,7 +39,7 @@ noise <- learn_noise(powerconsumption)
 Then, we can generate some curves using the previous estimated parameters. 
 
 ```{r data}
-X <- generate_data(10, 100, mu, cov, noise, exp(-5.5), 0.2, 1)
+X <- generate_data(10, 100, mu, cov, noise, exp(-5.5), NULL, 0.2, 1)
 ```
 
 ```{r plot, echo=FALSE, fig.height=4.35, fig.width=7}
@@ -52,7 +52,7 @@ for(i in 2:9){
 Now, we will (visually) compare true data with a simulated realization. The true data from the powerconsumption dataset is plotted in blue, while a generated curve is plotted in red.
 
 ```{r data_new}
-X <- generate_data(1, 1440, mu, cov, noise, exp(-5.5), 0.2, 1)
+X <- generate_data(1, 1440, mu, cov, noise, exp(-5.5), NULL, 0.2, 1)
 ```
 
 

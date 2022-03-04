@@ -56,7 +56,7 @@ learn_mean <- function(df, k = 50) {
 #' \dontrun{
 #' if(interactive()){
 #'  attach(powerconsumption)
-#'  mod <- learn_mean(df = powerconsumption, K = 50)
+#'  mod <- learn_mean(df = powerconsumption, k = 50)
 #'  m <- predict_mean(u = seq(0, 1, length.out = 101), model = mod,
 #'                    lambda = exp(-3.5), k = 50)
 #'  }

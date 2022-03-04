@@ -11,6 +11,7 @@ generate_data(
   covariance,
   model_noise,
   lambda,
+  ti = NULL,
   p = 0.2,
   k = 1
 )
@@ -27,6 +28,8 @@ generate_data(
 \item{model_noise}{Object of class 'gam' from the function \code{learn_noise}.}
 
 \item{lambda}{Value of the penalty parameter for the mean curve.}
+
+\item{ti}{Sampling points of each curves, default=NULL.}
 
 \item{p}{Uncertainty for the number of observation per curve, default=0.2.}
 
@@ -62,7 +65,7 @@ if(interactive()){
  cov <- learn_covariance(powerconsumption, 'lm')
  coefs <- learn_noise(df = powerconsumption)
  df <- generate_data(n = 10, m = 40, model_mean = mod, covariance = cov,
-                     coefs = coefs, lambda = exp(-3.5), p = 0.2)
+                     coefs = coefs, lambda = exp(-3.5), ti = NULL, p = 0.2)
  }
 }
 }

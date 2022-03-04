@@ -12,6 +12,7 @@
 #' @param covariance Matrix for the covariance surface.
 #' @param model_noise Object of class 'gam' from the function `learn_noise`.
 #' @param lambda Value of the penalty parameter for the mean curve.
+#' @param ti Sampling points of each curves, default=NULL.
 #' @param p Uncertainty for the number of observation per curve, default=0.2.
 #' @param k Multiplicative factor for the noise variance, default=1.
 #'
@@ -39,7 +40,7 @@
 #'  cov <- learn_covariance(powerconsumption, 'lm')
 #'  coefs <- learn_noise(df = powerconsumption)
 #'  df <- generate_data(n = 10, m = 40, model_mean = mod, covariance = cov,
-#'                      coefs = coefs, lambda = exp(-3.5), p = 0.2)
+#'                      coefs = coefs, lambda = exp(-3.5), ti = NULL, p = 0.2)
 #'  }
 #' }
 #' @seealso
@@ -53,10 +54,12 @@
 #' @importFrom MASS mvrnorm
 #' @importFrom magrittr %>%
 generate_data <- function(n, m, model_mean, covariance, model_noise, lambda,
-                          p = 0.2, k = 1){
+                          ti = NULL, p = 0.2, k = 1){
 
-  mi <- sample(floor((1 - p) * m):floor((1 + p) * m), n, replace = TRUE)
-  ti <- mi %>% purrr::map(~ sort(stats::runif(.x)))
+  if(is.null(ti)){
+    mi <- sample(floor((1 - p) * m):floor((1 + p) * m), n, replace = TRUE)
+    ti <- mi %>% purrr::map(~ sort(stats::runif(.x)))
+  }
 
   mui <- ti %>% purrr::map(~ predict_mean(.x, model_mean, lambda, k = 50))
   covi <- ti %>% purrr::map(~ predict_covariance(.x, covariance))
