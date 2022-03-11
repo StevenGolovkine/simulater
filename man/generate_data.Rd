@@ -68,7 +68,9 @@ if(interactive()){
  cov <- learn_covariance(powerconsumption, 'lm')
  coefs <- learn_noise(df = powerconsumption)
  df <- generate_data(n = 10, m = 40, model_mean = mod, covariance = cov,
-                     coefs = coefs, lambda = exp(-3.5), ti = NULL, p = 0.2)
+                     model_noise = coefs, lambda = exp(-3.5),
+                     ti = NULL, grid = seq(0, 1, length.out = 101),
+                     p = 0.2, k = 1)
  }
 }
 }
